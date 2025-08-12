@@ -1,0 +1,46 @@
+﻿<Byteblazar>
+    <append xpath="/blocks">
+        <block name="SingularityConfig">
+            <property name="Extends" value="terrDesertGround"/>
+
+            <property class="XMLExtensions">
+                <property name="ShaderlessFX" value="false"/>
+				 <!-- 
+				 Adds two new screen effects: Singularity_Snapshot and Singularity_Overlay. They can be used via XML as ModifyScreenEffect triggered actions. Singularity_Snapshot takes a snapshot of the whole screen and applies it as an overlay. 
+				 
+					 Example:
+					 <triggered_effect trigger="onSelfBuffStart" action="ModifyScreenEffect" fade="1" effect_name="Singularity_Snapshot"/>
+				 
+				 Singularity_Overlay applies a uniform color overlay. By default the overlay will be white, but you can optionally declare a "color" attribute (rgba).
+				 
+					 Examples:
+					 <triggered_effect trigger="onSelfBuffStart" action="ModifyScreenEffect" intensity="1" fade=".8" effect_name="Singularity_Overlay"/> 
+					 <triggered_effect trigger="onSelfBuffStart" action="ModifyScreenEffect" intensity=".5" fade="1" effect_name="Singularity_Overlay" color="FF0000"/> 
+					 
+				 -->
+                <property name="EntityStun" value="false"/>
+				<!-- 
+				Any entity with a "Singularity_Stunned" CVar value greater than 0 will stop chasing and looking at other entities. They will still get alerted and even attack enemies within their reach, but they will not move from their position or turn to face them outside of that range. For compatibility between mods, it's recommended to use add and subtract operations instead of set (add 1 to initiate the stun, subtract 1 when done). 
+				-->
+                <property name="NonlethalExplosives" value="false"/>
+				<!-- 
+				Adds a new "Singularity_IsNonlethalExplosive" property that can be added to explosives via XML to prevent them from dealing damage but still apply whatever buffs they have set in "Explosion.Buffs" to all targets within their blast radius (not ignoring cover). 
+				-->
+                <property name="AmmoSounds" value="false"/>
+				<!-- 
+				Adds two new properties for ammo: "Singularity_Sound_start" and "Singularity_Sound_loop" that override the respective weapon sounds when using that ammo.
+				-->
+            </property>
+
+            <property class="ScreenEffects">
+                <property name="DisableBloodDropsOverlay" value="false"/>
+				<!-- Completely disables the blood drops overlay that occurs when players take damage from any source. -->
+                <property name="UseCustomDrowningEffects" value="false"/>
+				<!-- Replaces the blood drop overlay with custom effects when drowning. Requires ShaderlessFX. -->
+                <property name="UseCustomBurningEffects" value="false"/>
+				<!-- Replaces the blood drop overlay with custom effects when burning. Requires ShaderlessFX. -->
+            </property>
+
+        </block>
+    </append>
+</Byteblazar>
