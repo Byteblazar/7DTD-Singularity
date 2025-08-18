@@ -3,6 +3,18 @@
   "WorkspaceRootPath": "C:\\Users\\Rhade\\source\\repos\\Singularity\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{6A593CFD-420A-4911-894B-88AF41CF7F8A}|Singularity\\Singularity.csproj|c:\\users\\rhade\\source\\repos\\singularity\\singularity\\mineventactionmodifyscreeneffect-parsexmlattribute..cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6A593CFD-420A-4911-894B-88AF41CF7F8A}|Singularity\\Singularity.csproj|solutionrelative:singularity\\mineventactionmodifyscreeneffect-parsexmlattribute..cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6A593CFD-420A-4911-894B-88AF41CF7F8A}|Singularity\\Singularity.csproj|c:\\users\\rhade\\source\\repos\\singularity\\singularity\\mineventactionmodifyscreeneffect-execute..cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6A593CFD-420A-4911-894B-88AF41CF7F8A}|Singularity\\Singularity.csproj|solutionrelative:singularity\\mineventactionmodifyscreeneffect-execute..cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6A593CFD-420A-4911-894B-88AF41CF7F8A}|Singularity\\Singularity.csproj|c:\\users\\rhade\\source\\repos\\singularity\\singularity\\screeneffects-setscreeneffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6A593CFD-420A-4911-894B-88AF41CF7F8A}|Singularity\\Singularity.csproj|solutionrelative:singularity\\screeneffects-setscreeneffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{6A593CFD-420A-4911-894B-88AF41CF7F8A}|Singularity\\Singularity.csproj|c:\\users\\rhade\\source\\repos\\singularity\\singularity\\itemactionranged-itemactioneffects.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6A593CFD-420A-4911-894B-88AF41CF7F8A}|Singularity\\Singularity.csproj|solutionrelative:singularity\\itemactionranged-itemactioneffects.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -39,18 +51,6 @@
       "RelativeMoniker": "D:0:0:{6A593CFD-420A-4911-894B-88AF41CF7F8A}|Singularity\\Singularity.csproj|solutionrelative:singularity\\shaderlessfx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6A593CFD-420A-4911-894B-88AF41CF7F8A}|Singularity\\Singularity.csproj|c:\\users\\rhade\\source\\repos\\singularity\\singularity\\mineventactionmodifyscreeneffect-parsexmlattribute..cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6A593CFD-420A-4911-894B-88AF41CF7F8A}|Singularity\\Singularity.csproj|solutionrelative:singularity\\mineventactionmodifyscreeneffect-parsexmlattribute..cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6A593CFD-420A-4911-894B-88AF41CF7F8A}|Singularity\\Singularity.csproj|c:\\users\\rhade\\source\\repos\\singularity\\singularity\\mineventactionmodifyscreeneffect-execute..cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6A593CFD-420A-4911-894B-88AF41CF7F8A}|Singularity\\Singularity.csproj|solutionrelative:singularity\\mineventactionmodifyscreeneffect-execute..cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6A593CFD-420A-4911-894B-88AF41CF7F8A}|Singularity\\Singularity.csproj|c:\\users\\rhade\\source\\repos\\singularity\\singularity\\screeneffects-setscreeneffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6A593CFD-420A-4911-894B-88AF41CF7F8A}|Singularity\\Singularity.csproj|solutionrelative:singularity\\screeneffects-setscreeneffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{6A593CFD-420A-4911-894B-88AF41CF7F8A}|Singularity\\Singularity.csproj|c:\\users\\rhade\\source\\repos\\singularity\\singularity\\emodelbase-lookatupdate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6A593CFD-420A-4911-894B-88AF41CF7F8A}|Singularity\\Singularity.csproj|solutionrelative:singularity\\emodelbase-lookatupdate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -74,7 +74,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -86,7 +86,119 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Harmony.cs",
+              "DocumentMoniker": "C:\\Users\\Rhade\\source\\repos\\Singularity\\Singularity\\Harmony.cs",
+              "RelativeDocumentMoniker": "Singularity\\Harmony.cs",
+              "ToolTip": "C:\\Users\\Rhade\\source\\repos\\Singularity\\Singularity\\Harmony.cs",
+              "RelativeToolTip": "Singularity\\Harmony.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAqwA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-07T14:23:31.493Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ItemActionRanged-ItemActionEffects.cs",
+              "DocumentMoniker": "C:\\Users\\Rhade\\source\\repos\\Singularity\\Singularity\\ItemActionRanged-ItemActionEffects.cs",
+              "RelativeDocumentMoniker": "Singularity\\ItemActionRanged-ItemActionEffects.cs",
+              "ToolTip": "C:\\Users\\Rhade\\source\\repos\\Singularity\\Singularity\\ItemActionRanged-ItemActionEffects.cs",
+              "RelativeToolTip": "Singularity\\ItemActionRanged-ItemActionEffects.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAAC8AAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-14T03:40:54.481Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MinEventActionModifyScreenEffect-ParseXmlAttribute..cs",
+              "DocumentMoniker": "C:\\Users\\Rhade\\source\\repos\\Singularity\\Singularity\\MinEventActionModifyScreenEffect-ParseXmlAttribute..cs",
+              "RelativeDocumentMoniker": "Singularity\\MinEventActionModifyScreenEffect-ParseXmlAttribute..cs",
+              "ToolTip": "C:\\Users\\Rhade\\source\\repos\\Singularity\\Singularity\\MinEventActionModifyScreenEffect-ParseXmlAttribute..cs",
+              "RelativeToolTip": "Singularity\\MinEventActionModifyScreenEffect-ParseXmlAttribute..cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABoAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-10T16:48:13.406Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MinEventActionModifyScreenEffect-Execute..cs",
+              "DocumentMoniker": "C:\\Users\\Rhade\\source\\repos\\Singularity\\Singularity\\MinEventActionModifyScreenEffect-Execute..cs",
+              "RelativeDocumentMoniker": "Singularity\\MinEventActionModifyScreenEffect-Execute..cs",
+              "ToolTip": "C:\\Users\\Rhade\\source\\repos\\Singularity\\Singularity\\MinEventActionModifyScreenEffect-Execute..cs",
+              "RelativeToolTip": "Singularity\\MinEventActionModifyScreenEffect-Execute..cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-13T02:42:52.171Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ScreenEffects-SetScreenEffect.cs",
+              "DocumentMoniker": "C:\\Users\\Rhade\\source\\repos\\Singularity\\Singularity\\ScreenEffects-SetScreenEffect.cs",
+              "RelativeDocumentMoniker": "Singularity\\ScreenEffects-SetScreenEffect.cs",
+              "ToolTip": "C:\\Users\\Rhade\\source\\repos\\Singularity\\Singularity\\ScreenEffects-SetScreenEffect.cs",
+              "RelativeToolTip": "Singularity\\ScreenEffects-SetScreenEffect.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAB0AAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-07T19:35:16.494Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Explosion-AttackEntities.cs",
+              "DocumentMoniker": "C:\\Users\\Rhade\\source\\repos\\Singularity\\Singularity\\Explosion-AttackEntities.cs",
+              "RelativeDocumentMoniker": "Singularity\\Explosion-AttackEntities.cs",
+              "ToolTip": "C:\\Users\\Rhade\\source\\repos\\Singularity\\Singularity\\Explosion-AttackEntities.cs",
+              "RelativeToolTip": "Singularity\\Explosion-AttackEntities.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-07T18:50:40.522Z"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 7,
+              "Title": "EntityMoveHelper-UpdateMoveHelper.cs",
+              "DocumentMoniker": "C:\\Users\\Rhade\\source\\repos\\Singularity\\Singularity\\EntityMoveHelper-UpdateMoveHelper.cs",
+              "RelativeDocumentMoniker": "Singularity\\EntityMoveHelper-UpdateMoveHelper.cs",
+              "ToolTip": "C:\\Users\\Rhade\\source\\repos\\Singularity\\Singularity\\EntityMoveHelper-UpdateMoveHelper.cs",
+              "RelativeToolTip": "Singularity\\EntityMoveHelper-UpdateMoveHelper.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-07T19:30:47.515Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "AmmoSounds.cs",
+              "DocumentMoniker": "C:\\Users\\Rhade\\source\\repos\\Singularity\\Singularity\\AmmoSounds.cs",
+              "RelativeDocumentMoniker": "Singularity\\AmmoSounds.cs",
+              "ToolTip": "C:\\Users\\Rhade\\source\\repos\\Singularity\\Singularity\\AmmoSounds.cs",
+              "RelativeToolTip": "Singularity\\AmmoSounds.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-15T13:35:09.125Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Config.cs",
+              "DocumentMoniker": "C:\\Users\\Rhade\\source\\repos\\Singularity\\Singularity\\Config.cs",
+              "RelativeDocumentMoniker": "Singularity\\Config.cs",
+              "ToolTip": "C:\\Users\\Rhade\\source\\repos\\Singularity\\Singularity\\Config.cs",
+              "RelativeToolTip": "Singularity\\Config.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-07T16:11:42.582Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
               "Title": "Utils.cs",
               "DocumentMoniker": "C:\\Users\\Rhade\\source\\repos\\Singularity\\Singularity\\Utils.cs",
               "RelativeDocumentMoniker": "Singularity\\Utils.cs",
@@ -99,79 +211,6 @@
             {
               "$type": "Document",
               "DocumentIndex": 6,
-              "Title": "Config.cs",
-              "DocumentMoniker": "C:\\Users\\Rhade\\source\\repos\\Singularity\\Singularity\\Config.cs",
-              "RelativeDocumentMoniker": "Singularity\\Config.cs",
-              "ToolTip": "C:\\Users\\Rhade\\source\\repos\\Singularity\\Singularity\\Config.cs",
-              "RelativeToolTip": "Singularity\\Config.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-07T16:11:42.582Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "AmmoSounds.cs",
-              "DocumentMoniker": "C:\\Users\\Rhade\\source\\repos\\Singularity\\Singularity\\AmmoSounds.cs",
-              "RelativeDocumentMoniker": "Singularity\\AmmoSounds.cs",
-              "ToolTip": "C:\\Users\\Rhade\\source\\repos\\Singularity\\Singularity\\AmmoSounds.cs",
-              "RelativeToolTip": "Singularity\\AmmoSounds.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-15T13:35:09.125Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "EntityMoveHelper-UpdateMoveHelper.cs",
-              "DocumentMoniker": "C:\\Users\\Rhade\\source\\repos\\Singularity\\Singularity\\EntityMoveHelper-UpdateMoveHelper.cs",
-              "RelativeDocumentMoniker": "Singularity\\EntityMoveHelper-UpdateMoveHelper.cs",
-              "ToolTip": "C:\\Users\\Rhade\\source\\repos\\Singularity\\Singularity\\EntityMoveHelper-UpdateMoveHelper.cs",
-              "RelativeToolTip": "Singularity\\EntityMoveHelper-UpdateMoveHelper.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-07T19:30:47.515Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Explosion-AttackEntities.cs",
-              "DocumentMoniker": "C:\\Users\\Rhade\\source\\repos\\Singularity\\Singularity\\Explosion-AttackEntities.cs",
-              "RelativeDocumentMoniker": "Singularity\\Explosion-AttackEntities.cs",
-              "ToolTip": "C:\\Users\\Rhade\\source\\repos\\Singularity\\Singularity\\Explosion-AttackEntities.cs",
-              "RelativeToolTip": "Singularity\\Explosion-AttackEntities.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-07T18:50:40.522Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Harmony.cs",
-              "DocumentMoniker": "C:\\Users\\Rhade\\source\\repos\\Singularity\\Singularity\\Harmony.cs",
-              "RelativeDocumentMoniker": "Singularity\\Harmony.cs",
-              "ToolTip": "C:\\Users\\Rhade\\source\\repos\\Singularity\\Singularity\\Harmony.cs",
-              "RelativeToolTip": "Singularity\\Harmony.cs",
-              "ViewState": "AgIAAAQAAAAAAAAAAAAqwA4AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-07T14:23:31.493Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "ItemActionRanged-ItemActionEffects.cs",
-              "DocumentMoniker": "C:\\Users\\Rhade\\source\\repos\\Singularity\\Singularity\\ItemActionRanged-ItemActionEffects.cs",
-              "RelativeDocumentMoniker": "Singularity\\ItemActionRanged-ItemActionEffects.cs",
-              "ToolTip": "C:\\Users\\Rhade\\source\\repos\\Singularity\\Singularity\\ItemActionRanged-ItemActionEffects.cs",
-              "RelativeToolTip": "Singularity\\ItemActionRanged-ItemActionEffects.cs",
-              "ViewState": "AgIAAA0AAAAAAAAAAAAiwBoAAAAuAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-14T03:40:54.481Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
               "Title": "EntityPlayerLocal-guiDrawOverlayTextures.cs",
               "DocumentMoniker": "C:\\Users\\Rhade\\source\\repos\\Singularity\\Singularity\\EntityPlayerLocal-guiDrawOverlayTextures.cs",
               "RelativeDocumentMoniker": "Singularity\\EntityPlayerLocal-guiDrawOverlayTextures.cs",
@@ -183,7 +222,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 11,
               "Title": "ShaderlessFX.cs",
               "DocumentMoniker": "C:\\Users\\Rhade\\source\\repos\\Singularity\\Singularity\\ShaderlessFX.cs",
               "RelativeDocumentMoniker": "Singularity\\ShaderlessFX.cs",
@@ -192,42 +231,6 @@
               "ViewState": "AgIAADsAAAAAAAAAAAA9wJgAAAAsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-07T18:47:12.272Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "MinEventActionModifyScreenEffect-ParseXmlAttribute..cs",
-              "DocumentMoniker": "C:\\Users\\Rhade\\source\\repos\\Singularity\\Singularity\\MinEventActionModifyScreenEffect-ParseXmlAttribute..cs",
-              "RelativeDocumentMoniker": "Singularity\\MinEventActionModifyScreenEffect-ParseXmlAttribute..cs",
-              "ToolTip": "C:\\Users\\Rhade\\source\\repos\\Singularity\\Singularity\\MinEventActionModifyScreenEffect-ParseXmlAttribute..cs",
-              "RelativeToolTip": "Singularity\\MinEventActionModifyScreenEffect-ParseXmlAttribute..cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAABsAAAA5AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-10T16:48:13.406Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "MinEventActionModifyScreenEffect-Execute..cs",
-              "DocumentMoniker": "C:\\Users\\Rhade\\source\\repos\\Singularity\\Singularity\\MinEventActionModifyScreenEffect-Execute..cs",
-              "RelativeDocumentMoniker": "Singularity\\MinEventActionModifyScreenEffect-Execute..cs",
-              "ToolTip": "C:\\Users\\Rhade\\source\\repos\\Singularity\\Singularity\\MinEventActionModifyScreenEffect-Execute..cs",
-              "RelativeToolTip": "Singularity\\MinEventActionModifyScreenEffect-Execute..cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAAABMAAAAbAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-13T02:42:52.171Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "ScreenEffects-SetScreenEffect.cs",
-              "DocumentMoniker": "C:\\Users\\Rhade\\source\\repos\\Singularity\\Singularity\\ScreenEffects-SetScreenEffect.cs",
-              "RelativeDocumentMoniker": "Singularity\\ScreenEffects-SetScreenEffect.cs",
-              "ToolTip": "C:\\Users\\Rhade\\source\\repos\\Singularity\\Singularity\\ScreenEffects-SetScreenEffect.cs",
-              "RelativeToolTip": "Singularity\\ScreenEffects-SetScreenEffect.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAB0AAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-07T19:35:16.494Z"
             },
             {
               "$type": "Document",

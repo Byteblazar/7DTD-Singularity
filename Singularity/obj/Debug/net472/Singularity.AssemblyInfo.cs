@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Singularity")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+32223c5d97b1553a44ad6bb6eacea5df14b0e6f3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8566de2afe684320a676f16b384614deb4469b74")]
 [assembly: System.Reflection.AssemblyProductAttribute("Singularity")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Singularity")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

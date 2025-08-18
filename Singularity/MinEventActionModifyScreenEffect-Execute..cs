@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Singularity
  * Copyright © 2025 Byteblazar <byteblazar@protonmail.com> * 
  * 
@@ -27,7 +27,6 @@ namespace Singularity
                     Singularity.fx.SetOverlayColor(color);
                 else Singularity.fx.OverlayColor = Color.white;
             }
-
         }
     }
 }
