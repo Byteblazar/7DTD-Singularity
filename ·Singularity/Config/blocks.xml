@@ -30,6 +30,7 @@
 				<!-- 
 				Adds two new properties for ammo: "Singularity_Sound_start" and "Singularity_Sound_loop" that override the respective weapon sounds when using that ammo.
 				-->
+				
             </property>
 
             <property class="ScreenEffects">

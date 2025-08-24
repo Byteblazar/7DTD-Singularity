@@ -13,8 +13,6 @@
  * 
 */
 
-using System.Collections.Concurrent;
-
 namespace Singularity
 {
 	public class NetPackageItemActionSound : NetPackage
@@ -22,8 +20,8 @@ namespace Singularity
 		public int entityId;
 		public byte slotIdx;
 		public byte actionIdx;
-		public string soundStart;
-		public string soundLoop;
+		public string? soundStart;
+		public string? soundLoop;
 
 		public NetPackageItemActionSound Setup(int _entityId, int _slotIdx, int _actionIdx, string soundStart, string soundLoop)
 		{
@@ -71,44 +69,5 @@ namespace Singularity
 		}
 
 		public override int GetLength() => 100;
-	}
-
-	public sealed class SoundInfo
-	{
-		public readonly string Start;
-		public readonly string Loop;
-		//public readonly string End;
-		//public readonly string Empty;
-
-		public SoundInfo(string? start = null, string? loop = null/*, string end = null, string empty = null*/)
-		{
-			Start = start;
-			Loop = loop;
-			//End = end;
-			//Empty = empty;
-		}
-	}
-
-	public static class SingularitySoundLookup
-	{
-		static readonly ConcurrentDictionary<int, SoundInfo> s_cache = new(concurrencyLevel: 2, capacity: 128);
-
-		public static SoundInfo? GetSoundInfo(int ammoItemId)
-		{
-			if (ammoItemId <= 0) return default;
-
-			return s_cache.GetOrAdd(ammoItemId, id =>
-			{
-				ItemClass ammoClass = ItemClass.GetForId(id);
-				if (ammoClass?.Properties?.Values == null) return new SoundInfo();
-
-				ammoClass.Properties.Values.TryGetValue("Singularity_Sound_start", out var start);
-				ammoClass.Properties.Values.TryGetValue("Singularity_Sound_loop", out var loop);
-				//ammoClass.Properties.Values.TryGetValue("Singularity_Sound_end", out var end);
-				//ammoClass.Properties.Values.TryGetValue("Singularity_Sound_empty", out var empty);
-
-				return new SoundInfo(start, loop/*, end, empty*/);
-			});
-		}
 	}
 }

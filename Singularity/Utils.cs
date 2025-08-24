@@ -20,7 +20,7 @@ namespace Singularity
 	public static class Utils
 	{
 		public static bool IsHost => GameManager.IsDedicatedServer || SingletonMonoBehaviour<ConnectionManager>.Instance.IsServer;
-		public static bool IsMultiplayerSession => (!GameManager.IsDedicatedServer) && SingletonMonoBehaviour<ConnectionManager>.Instance.IsServer;
+		public static bool IsMultiplayerHost => (!GameManager.IsDedicatedServer) && SingletonMonoBehaviour<ConnectionManager>.Instance.IsServer;
 		public static Color ParseAnyColor(string input)
 		{
 			if (string.IsNullOrWhiteSpace(input))

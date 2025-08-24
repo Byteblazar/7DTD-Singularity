@@ -17,10 +17,14 @@ namespace Singularity
 {
 	public abstract partial class ItemActionRanged_Patches
 	{
-		public static void Postfix_SwapAmmoType(ItemActionRanged __instance, EntityAlive _entity, int _ammoItemId = -1)
+		public static void Postfix_ReloadGun(ItemActionRanged __instance, ItemActionData _actionData)
 		{
-			Log.Warning("SwapAmmoType");
-			var actionDataRanged = _entity?.inventory?.holdingItemData?.actionData[0] as ItemActionRanged.ItemActionDataRanged;
+			if (!(_actionData is ItemActionRanged.ItemActionDataRanged actionDataRanged))
+				return;
+			actionDataRanged.isReloadRequested = false;
+			if (actionDataRanged.invData.holdingEntity.isEntityRemote)
+				return;
+
 			UpdateSounds(__instance, actionDataRanged);
 		}
 	}

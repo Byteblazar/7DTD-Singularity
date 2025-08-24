@@ -102,8 +102,8 @@ namespace Singularity
 						original,
 						postfix: new HarmonyMethod(postfix));
 
-					original = AccessTools.Method(typeof(ItemActionRanged), nameof(ItemActionRanged.SwapAmmoType), new Type[] { typeof(EntityAlive), typeof(int) });
-					postfix = AccessTools.Method(typeof(ItemActionRanged_Patches), nameof(ItemActionRanged_Patches.Postfix_SwapAmmoType));
+					original = AccessTools.Method(typeof(ItemActionRanged), nameof(ItemActionRanged.ReloadGun), new Type[] { typeof(ItemActionData) });
+					postfix = AccessTools.Method(typeof(ItemActionRanged_Patches), nameof(ItemActionRanged_Patches.Postfix_ReloadGun));
 					harmony?.Patch(
 						original,
 						prefix: new HarmonyMethod(postfix));

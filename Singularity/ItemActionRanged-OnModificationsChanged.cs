@@ -19,7 +19,6 @@ namespace Singularity
 	{
 		public static void Postfix_OnModificationsChanged(ItemActionRanged __instance, ItemActionData _data)
 		{
-			Log.Warning("OnModificationsChanged");
 			UpdateSounds(__instance, _data);
 		}
 
@@ -27,7 +26,7 @@ namespace Singularity
 		{
 			// runs locally in clients and for the host in multiplayer sessions
 			var localPlayer = GameManager.Instance?.World?.GetPrimaryPlayer();
-			if (!Utils.IsMultiplayerSession && _actionData?.invData?.holdingEntity?.entityId != localPlayer?.entityId)
+			if (!Utils.IsMultiplayerHost && _actionData?.invData?.holdingEntity?.entityId != localPlayer?.entityId)
 				return;
 
 			// this method needs to know if the weapon is overriding sounds (item modifiers), and if not, it applies custom ammo sounds as needed
@@ -54,7 +53,7 @@ namespace Singularity
 			props.Values.TryGetValue("Sound_start", out actionDataRanged.SoundStart);
 			props.Values.TryGetValue("Sound_loop", out actionDataRanged.SoundLoop);
 
-			if(ammoClass.Properties.Values.TryGetValue("Singularity_Sound_start", out var ammoSoundStart))
+			if (ammoClass.Properties.Values.TryGetValue("Singularity_Sound_start", out var ammoSoundStart))
 				actionDataRanged.SoundStart = ammoSoundStart;
 
 			if (ammoClass.Properties.Values.TryGetValue("Singularity_Sound_loop", out var ammoSoundLoop))
@@ -74,8 +73,9 @@ namespace Singularity
 					actionDataRanged.SoundLoop
 				);
 
-			if(GameManager.Instance.World.IsRemote())
+			if (GameManager.Instance.World.IsRemote())
 				SingletonMonoBehaviour<ConnectionManager>.Instance.SendToServer(pkg);
+			else SingletonMonoBehaviour<ConnectionManager>.Instance.SendPackage(pkg, _allButAttachedToEntityId: localPlayer.entityId);
 		}
 	}
 }
