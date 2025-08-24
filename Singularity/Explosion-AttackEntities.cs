@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Singularity
  * Copyright © 2025 Byteblazar <byteblazar@protonmail.com> * 
  * 
@@ -17,56 +17,56 @@ using UnityEngine;
 
 namespace Singularity
 {
-    public abstract class Explosion_Patches
-    {
-        public static bool Prefix_AttackEntities(Explosion __instance, int _entityThatCausedExplosion, ItemValue _itemValueExplosionSource)
-        {
-            if (_itemValueExplosionSource == null
-             || !_itemValueExplosionSource.ItemClass.Properties
-                    .GetBool("Singularity_IsNonlethalExplosive"))
-                return true;
+	public abstract class Explosion_Patches
+	{
+		public static bool Prefix_AttackEntities(Explosion __instance, int _entityThatCausedExplosion, ItemValue _itemValueExplosionSource)
+		{
+			if (_itemValueExplosionSource == null
+			 || !_itemValueExplosionSource.ItemClass.Properties
+					.GetBool("Singularity_IsNonlethalExplosive"))
+				return true;
 
-            var buffs = __instance.explosionData.BuffActions;
-            if (buffs == null || buffs.Count == 0)
-                return false;
+			var buffs = __instance.explosionData.BuffActions;
+			if (buffs == null || buffs.Count == 0)
+				return false;
 
-            Vector3 centerWorld = __instance.worldPos;
-            Vector3 centerLocal = centerWorld - Origin.position;
-            float radius = __instance.explosionData.EntityRadius;
+			Vector3 centerWorld = __instance.worldPos;
+			Vector3 centerLocal = centerWorld - Origin.position;
+			float radius = __instance.explosionData.EntityRadius;
 
-            var cols = Physics.OverlapSphere(
-                centerLocal,
-                radius,
-                Physics.AllLayers,
-                QueryTriggerInteraction.Collide
-            );
+			var cols = Physics.OverlapSphere(
+				centerLocal,
+				radius,
+				Physics.AllLayers,
+				QueryTriggerInteraction.Collide
+			);
 
-            foreach (var col in cols)
-            {
-                var entity = col.GetComponentInParent<EntityAlive>();
-                if (entity == null || entity.IsDead())
-                    continue;
+			foreach (var col in cols)
+			{
+				var entity = col.GetComponentInParent<EntityAlive>();
+				if (entity == null || entity.IsDead())
+					continue;
 
-                Vector3 targetPos = entity.GetPosition();
-                Vector3 dir = targetPos - centerWorld;
-                float dist = dir.magnitude;
-                var ray = new Ray(centerWorld, dir / dist);
+				Vector3 targetPos = entity.GetPosition();
+				Vector3 dir = targetPos - centerWorld;
+				float dist = dir.magnitude;
+				var ray = new Ray(centerWorld, dir / dist);
 
-                if (Voxel.Raycast(
-                        __instance.world,
-                        ray,
-                        dist,
-                        65536,   // layerMask for terrain
-                        66,      // blockMask for solid
-                        0f       // sphereRadius (vanilla uses 0)
-                    ))
-                    continue;  // blocked by terrain
+				if (Voxel.Raycast(
+						__instance.world,
+						ray,
+						dist,
+						65536,   // layerMask for terrain
+						66,      // blockMask for solid
+						0f       // sphereRadius (vanilla uses 0)
+					))
+					continue;  // blocked by terrain
 
-                foreach (var buff in buffs)
-                    entity.Buffs.AddBuff(buff, _entityThatCausedExplosion);
-            }
+				foreach (var buff in buffs)
+					entity.Buffs.AddBuff(buff, _entityThatCausedExplosion);
+			}
 
-            return false;
-        }
-    }
+			return false;
+		}
+	}
 }

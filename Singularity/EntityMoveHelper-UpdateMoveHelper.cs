@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Singularity
  * Copyright © 2025 Byteblazar <byteblazar@protonmail.com> * 
  * 
@@ -15,16 +15,16 @@
 
 namespace Singularity
 {
-    public abstract partial class EntityMoveHelper_Patches
-    {
-        public static bool Prefix_UpdateMoveHelper(EntityMoveHelper __instance)
-        {
-            if (__instance.entity.GetCVar("Singularity_Stunned") > 0f)
-            {
-                __instance.StopMove();
-                return false;
-            }
-            return true;
-        }
-    }
+	public abstract partial class EntityMoveHelper_Patches
+	{
+		public static bool Prefix_UpdateMoveHelper(EntityMoveHelper __instance)
+		{
+			if (__instance.entity.GetCVar("Singularity_Stunned") > 0f)
+			{
+				__instance.StopMove();
+				return false;
+			}
+			return true;
+		}
+	}
 }

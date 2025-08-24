@@ -15,24 +15,13 @@
 
 namespace Singularity
 {
-	public abstract partial class ScreenEffects_Patches
+	public abstract partial class ItemActionRanged_Patches
 	{
-		public static void Postfix_SetScreenEffect(ref string _name, ref float _intensity, ref float _fadeTime)
+		public static void Postfix_SwapAmmoType(ItemActionRanged __instance, EntityAlive _entity, int _ammoItemId = -1)
 		{
-			if (_name == "Singularity_Snapshot")
-			{
-				Singularity.fx?.Snapshot(_intensity, _fadeTime);
-			}
-			else if (_name == "Singularity_Overlay")
-			{
-				Singularity.fx?.OverlayRGB(_intensity, _fadeTime);
-			}
-		}
-		public static bool Prefix_SetScreenEffect(ref string _name, ref float _intensity, ref float _fadeTime)
-		{
-			return _name != "Dead"
-					|| !EntityPlayerLocal_Patches.DeathCam
-					|| !(EntityPlayerLocal_Patches.Burning || EntityPlayerLocal_Patches.DrowningPower > 0f);
+			Log.Warning("SwapAmmoType");
+			var actionDataRanged = _entity?.inventory?.holdingItemData?.actionData[0] as ItemActionRanged.ItemActionDataRanged;
+			UpdateSounds(__instance, actionDataRanged);
 		}
 	}
 }

@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Singularity
  * Copyright © 2025 Byteblazar <byteblazar@protonmail.com> * 
  * 
@@ -17,25 +17,25 @@ using UnityEngine;
 
 namespace Singularity
 {
-    public static class Utils
-    {
-        public static bool IsHost => GameManager.IsDedicatedServer || SingletonMonoBehaviour<ConnectionManager>.Instance.IsServer;
-        public static bool IsMultiplayerSession => (!GameManager.IsDedicatedServer) && SingletonMonoBehaviour<ConnectionManager>.Instance.IsServer;
-        public static Color ParseAnyColor(string input)
-        {
-            if (string.IsNullOrWhiteSpace(input))
-                return Color.clear;
+	public static class Utils
+	{
+		public static bool IsHost => GameManager.IsDedicatedServer || SingletonMonoBehaviour<ConnectionManager>.Instance.IsServer;
+		public static bool IsMultiplayerSession => (!GameManager.IsDedicatedServer) && SingletonMonoBehaviour<ConnectionManager>.Instance.IsServer;
+		public static Color ParseAnyColor(string input)
+		{
+			if (string.IsNullOrWhiteSpace(input))
+				return Color.clear;
 
-            input = input.Trim();
+			input = input.Trim();
 
-            try
-            {
-                return StringParsers.ParseHexColor(input);
-            }
-            catch
-            {
-                return StringParsers.ParseColor(input);
-            }
-        }
-    }
+			try
+			{
+				return StringParsers.ParseHexColor(input);
+			}
+			catch
+			{
+				return StringParsers.ParseColor(input);
+			}
+		}
+	}
 }

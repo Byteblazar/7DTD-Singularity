@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Singularity
  * Copyright © 2025 Byteblazar <byteblazar@protonmail.com> * 
  * 
@@ -18,17 +18,17 @@ using System.Xml.Linq;
 
 namespace Singularity
 {
-    public abstract partial class MinEventActionModifyScreenEffect_Patches
-    {
-        static readonly ConditionalWeakTable<MinEventActionModifyScreenEffect, string> AttributeValues = new();
-        public static void Prefix_ParseXmlAttribute(ref XAttribute _attribute, ref MinEventActionModifyScreenEffect __instance)
-        {
-            if (_attribute.Name.LocalName == "color")
-            {
-                var v = _attribute.Value ?? string.Empty;
-                AttributeValues.Remove(__instance);
-                AttributeValues.Add(__instance, v);
-            }
-        }
-    }
+	public abstract partial class MinEventActionModifyScreenEffect_Patches
+	{
+		static readonly ConditionalWeakTable<MinEventActionModifyScreenEffect, string> AttributeValues = new();
+		public static void Prefix_ParseXmlAttribute(ref XAttribute _attribute, ref MinEventActionModifyScreenEffect __instance)
+		{
+			if (_attribute.Name.LocalName == "color")
+			{
+				var v = _attribute.Value ?? string.Empty;
+				AttributeValues.Remove(__instance);
+				AttributeValues.Add(__instance, v);
+			}
+		}
+	}
 }

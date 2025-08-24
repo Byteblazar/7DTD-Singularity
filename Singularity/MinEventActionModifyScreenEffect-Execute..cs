@@ -17,16 +17,16 @@ using UnityEngine;
 
 namespace Singularity
 {
-    public abstract partial class MinEventActionModifyScreenEffect_Patches
-    {
-        public static void Prefix_Execute(ref MinEventParams _params, ref MinEventActionModifyScreenEffect __instance)
-        {
-            if (__instance.effect_name == "Singularity_Overlay")
-            {
-                if (AttributeValues.TryGetValue(__instance, out var color))
-                    Singularity.fx.SetOverlayColor(color);
-                else Singularity.fx.OverlayColor = Color.white;
-            }
-        }
-    }
+	public abstract partial class MinEventActionModifyScreenEffect_Patches
+	{
+		public static void Prefix_Execute(ref MinEventParams _params, ref MinEventActionModifyScreenEffect __instance)
+		{
+			if (__instance.effect_name == "Singularity_Overlay")
+			{
+				if (AttributeValues.TryGetValue(__instance, out var color))
+					Singularity.fx.SetOverlayColor(color);
+				else Singularity.fx.OverlayColor = Color.white;
+			}
+		}
+	}
 }

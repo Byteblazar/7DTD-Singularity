@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Singularity
  * Copyright © 2025 Byteblazar <byteblazar@protonmail.com> * 
  * 
@@ -17,109 +17,98 @@ using System.Collections.Concurrent;
 
 namespace Singularity
 {
-    public class NetPackageItemActionSound : NetPackage
-    {
-        public int entityId;
-        public byte slotIdx;
-        public byte actionIdx;
-        public int ammoItemId;
+	public class NetPackageItemActionSound : NetPackage
+	{
+		public int entityId;
+		public byte slotIdx;
+		public byte actionIdx;
+		public string soundStart;
+		public string soundLoop;
 
-        public NetPackageItemActionSound Setup(int _entityId, int _slotIdx, int _actionIdx, int _ammoItemId)
-        {
-            this.entityId = _entityId;
-            this.slotIdx = (byte)_slotIdx;
-            this.actionIdx = (byte)_actionIdx;
-            this.ammoItemId = _ammoItemId;
-            return this;
-        }
+		public NetPackageItemActionSound Setup(int _entityId, int _slotIdx, int _actionIdx, string soundStart, string soundLoop)
+		{
+			this.entityId = _entityId;
+			this.slotIdx = (byte)_slotIdx;
+			this.actionIdx = (byte)_actionIdx;
+			this.soundStart = soundStart;
+			this.soundLoop = soundLoop;
+			return this;
+		}
 
-        public override void read(PooledBinaryReader _reader)
-        {
-            this.entityId = _reader.ReadInt32();
-            this.slotIdx = _reader.ReadByte();
-            this.actionIdx = _reader.ReadByte();
-            this.ammoItemId = _reader.ReadInt32();
-        }
+		public override void read(PooledBinaryReader _reader)
+		{
+			this.entityId = _reader.ReadInt32();
+			this.slotIdx = _reader.ReadByte();
+			this.actionIdx = _reader.ReadByte();
+			this.soundStart = _reader.ReadString();
+			this.soundLoop = _reader.ReadString();
+		}
 
-        public override void write(PooledBinaryWriter _writer)
-        {
-            base.write(_writer);
-            _writer.Write(this.entityId);
-            _writer.Write(this.slotIdx);
-            _writer.Write(this.actionIdx);
-            _writer.Write(this.ammoItemId);
-        }
+		public override void write(PooledBinaryWriter _writer)
+		{
+			base.write(_writer);
+			_writer.Write(entityId);
+			_writer.Write(slotIdx);
+			_writer.Write(actionIdx);
+			_writer.Write(soundStart);
+			_writer.Write(soundLoop);
+		}
 
-        public override void ProcessPackage(World _world, GameManager _callbacks)
-        {
-            if (Utils.IsHost)
-                return;
+		public override void ProcessPackage(World _world, GameManager _callbacks)
+		{
+			if (Utils.IsHost) SingletonMonoBehaviour<ConnectionManager>.Instance.SendPackage(this, _allButAttachedToEntityId: entityId);
+			if (!GameManager.IsDedicatedServer)
+			{
+				EntityAlive? entity = (EntityAlive?)_world?.GetEntity(entityId);
+				if (entity == null) return;
 
-            EntityAlive? entity = (EntityAlive?)_world?.GetEntity(this.entityId);
-            if (entity == null) return;
+				var actionData = entity.inventory.GetItemActionDataInSlot(slotIdx, actionIdx) as ItemActionRanged.ItemActionDataRanged;
+				if (actionData == null) return;
 
-            var actionData = entity.inventory.GetItemActionDataInSlot(slotIdx, actionIdx) as ItemActionRanged.ItemActionDataRanged;
-            if (actionData == null) return;
+				if (!string.IsNullOrWhiteSpace(soundStart)) actionData.SoundStart = soundStart;
+				if (!string.IsNullOrWhiteSpace(soundLoop)) actionData.SoundLoop = soundLoop;
+			}
+		}
 
-            var sInfo = SingularitySoundLookup.GetSoundInfo(this.ammoItemId);
+		public override int GetLength() => 100;
+	}
 
-            string? ammoSoundStart = sInfo?.Start;
-            string? ammoSoundLoop = sInfo?.Loop;
+	public sealed class SoundInfo
+	{
+		public readonly string Start;
+		public readonly string Loop;
+		//public readonly string End;
+		//public readonly string Empty;
 
-            if (string.IsNullOrEmpty(ammoSoundStart))
-            {
-                var props = actionData.invData.itemValue.ItemClass.Actions[actionIdx].Properties;
-                props.Values.TryGetValue("Sound_start", out ammoSoundStart);
-            }
-            if (string.IsNullOrEmpty(ammoSoundLoop))
-            {
-                var props = actionData.invData.itemValue.ItemClass.Actions[actionIdx].Properties;
-                props.Values.TryGetValue("Sound_loop", out ammoSoundLoop);
-            }
+		public SoundInfo(string? start = null, string? loop = null/*, string end = null, string empty = null*/)
+		{
+			Start = start;
+			Loop = loop;
+			//End = end;
+			//Empty = empty;
+		}
+	}
 
-            actionData.SoundStart = ammoSoundStart;
-            actionData.SoundLoop = ammoSoundLoop;
-        }
+	public static class SingularitySoundLookup
+	{
+		static readonly ConcurrentDictionary<int, SoundInfo> s_cache = new(concurrencyLevel: 2, capacity: 128);
 
-        public override int GetLength() => 20;
-    }
+		public static SoundInfo? GetSoundInfo(int ammoItemId)
+		{
+			if (ammoItemId <= 0) return default;
 
-    public sealed class SoundInfo
-    {
-        public readonly string Start;
-        public readonly string Loop;
-        //public readonly string End;
-        //public readonly string Empty;
+			return s_cache.GetOrAdd(ammoItemId, id =>
+			{
+				ItemClass ammoClass = ItemClass.GetForId(id);
+				if (ammoClass?.Properties?.Values == null) return new SoundInfo();
 
-        public SoundInfo(string? start = null, string? loop = null/*, string end = null, string empty = null*/)
-        {
-            Start = start;
-            Loop = loop;
-            //End = end;
-            //Empty = empty;
-        }
-    }
+				ammoClass.Properties.Values.TryGetValue("Singularity_Sound_start", out var start);
+				ammoClass.Properties.Values.TryGetValue("Singularity_Sound_loop", out var loop);
+				//ammoClass.Properties.Values.TryGetValue("Singularity_Sound_end", out var end);
+				//ammoClass.Properties.Values.TryGetValue("Singularity_Sound_empty", out var empty);
 
-    public static class SingularitySoundLookup
-    {
-        static readonly ConcurrentDictionary<int, SoundInfo> s_cache = new(concurrencyLevel: 2, capacity: 128);
-
-        public static SoundInfo? GetSoundInfo(int ammoItemId)
-        {
-            if (ammoItemId <= 0) return default;
-
-            return s_cache.GetOrAdd(ammoItemId, id =>
-            {
-                ItemClass ammoClass = ItemClass.GetForId(id);
-                if (ammoClass?.Properties?.Values == null) return new SoundInfo();
-
-                ammoClass.Properties.Values.TryGetValue("Singularity_Sound_start", out var start);
-                ammoClass.Properties.Values.TryGetValue("Singularity_Sound_loop", out var loop);
-                //ammoClass.Properties.Values.TryGetValue("Singularity_Sound_end", out var end);
-                //ammoClass.Properties.Values.TryGetValue("Singularity_Sound_empty", out var empty);
-
-                return new SoundInfo(start, loop/*, end, empty*/);
-            });
-        }
-    }
+				return new SoundInfo(start, loop/*, end, empty*/);
+			});
+		}
+	}
 }

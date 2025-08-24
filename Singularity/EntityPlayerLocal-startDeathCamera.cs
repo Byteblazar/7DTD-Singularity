@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Singularity
  * Copyright © 2025 Byteblazar <byteblazar@protonmail.com> * 
  * 
@@ -15,17 +15,17 @@
 
 namespace Singularity
 {
-    public abstract partial class EntityPlayerLocal_Patches
-    {
-        public static bool DeathCam { get; set; }
+	public abstract partial class EntityPlayerLocal_Patches
+	{
+		public static bool DeathCam { get; set; }
 
-        public static void Prefix_startDeathCamera(EntityPlayerLocal __instance)
-        {
-            DeathCam = true;
-        }
-        public static void Postfix_startDeathCamera(EntityPlayerLocal __instance)
-        {
-            DeathCam = false;
-        }
-    }
+		public static void Prefix_startDeathCamera(EntityPlayerLocal __instance)
+		{
+			DeathCam = true;
+		}
+		public static void Postfix_startDeathCamera(EntityPlayerLocal __instance)
+		{
+			DeathCam = false;
+		}
+	}
 }
