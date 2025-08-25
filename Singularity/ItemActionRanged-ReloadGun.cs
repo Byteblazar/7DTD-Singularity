@@ -21,7 +21,7 @@ namespace Singularity
 		{
 			if (!(_actionData is ItemActionRanged.ItemActionDataRanged actionDataRanged))
 				return;
-			actionDataRanged.isReloadRequested = false;
+
 			if (actionDataRanged.invData.holdingEntity.isEntityRemote)
 				return;
 
