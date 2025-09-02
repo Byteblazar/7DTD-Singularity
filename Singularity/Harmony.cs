@@ -26,6 +26,10 @@ namespace Singularity
 		public static GameObject? go;
 		public static ShaderlessFX? fx;
 		public static bool Patched = false;
+
+		public static Dictionary<string, PatchInfo> patches = new();
+		public class PatchInfo { public MethodBase? original; public MethodInfo? patch; }
+
 		public void InitMod(Mod _modInstance)
 		{
 			harmony = new Harmony(Assembly.GetExecutingAssembly().FullName);
@@ -34,6 +38,15 @@ namespace Singularity
 			{
 				harmony?.UnpatchSelf();
 				Patched = false;
+
+				// patches for custom entity classes
+				var original = AccessTools.Method(typeof(EntityFactory), nameof(EntityFactory.GetEntityType), new Type[] { typeof(string) });
+				var patch = AccessTools.Method(typeof(EntityFactory_Patches), nameof(EntityFactory_Patches.Prefix_GetEntityType));
+				harmony?.Patch(original, prefix: patch);
+
+				original = AccessTools.Method(typeof(EntityClassesFromXml), nameof(EntityClassesFromXml.LoadEntityClasses), new Type[] { typeof(XmlFile) });
+				patch = AccessTools.Method(typeof(EntityClassesFromXml_Patches), nameof(EntityClassesFromXml_Patches.Prefix_LoadEntityClasses));
+				harmony?.Patch(original, prefix: patch);
 			});
 
 			ModEvents.PlayerSpawnedInWorld.RegisterHandler((ref ModEvents.SPlayerSpawnedInWorldData data) =>
@@ -41,72 +54,93 @@ namespace Singularity
 				if (Patched) return;
 				Patched = true;
 
-				//harmony.PatchAll(Assembly.GetExecutingAssembly());
+				//harmony.PatchAll(Assembly.GetExecutingAssembly()); //for testing shit
+
 				if (Config.CheckFeatureStatus("XMLExtensions", "ShaderlessFX"))
 				{
 					InitShaderlessFX();
 					var original = AccessTools.Method(typeof(ScreenEffects), nameof(ScreenEffects.SetScreenEffect), new Type[] { typeof(string), typeof(float), typeof(float) });
 					var postfix = AccessTools.Method(typeof(ScreenEffects_Patches), nameof(ScreenEffects_Patches.Postfix_SetScreenEffect));
-					harmony?.Patch(
-						original,
-						postfix: new HarmonyMethod(postfix));
+					harmony?.Patch(original, postfix: new HarmonyMethod(postfix));
 
 					original = AccessTools.Method(typeof(MinEventActionModifyScreenEffect), nameof(MinEventActionModifyScreenEffect.ParseXmlAttribute), new Type[] { typeof(XAttribute) });
 					var prefix = AccessTools.Method(typeof(MinEventActionModifyScreenEffect_Patches), nameof(MinEventActionModifyScreenEffect_Patches.Prefix_ParseXmlAttribute));
-					harmony?.Patch(
-						original,
-						prefix: new HarmonyMethod(prefix));
+					harmony?.Patch(original, prefix: new HarmonyMethod(prefix));
 
 					original = AccessTools.Method(typeof(MinEventActionModifyScreenEffect), nameof(MinEventActionModifyScreenEffect.Execute), new Type[] { typeof(MinEventParams) });
 					prefix = AccessTools.Method(typeof(MinEventActionModifyScreenEffect_Patches), nameof(MinEventActionModifyScreenEffect_Patches.Prefix_Execute));
-					harmony?.Patch(
-						original,
-						prefix: new HarmonyMethod(prefix));
+					harmony?.Patch(original, prefix: new HarmonyMethod(prefix));
 				}
 
 				if (Config.CheckFeatureStatus("XMLExtensions", "EntityStun"))
 				{
 					var original = AccessTools.Method(typeof(EntityLookHelper), nameof(EntityLookHelper.onUpdateLook));
 					var prefix = AccessTools.Method(typeof(EntityLookHelper_Patches), nameof(EntityLookHelper_Patches.Prefix_onUpdateLook));
-					harmony?.Patch(
-						original,
-						prefix: new HarmonyMethod(prefix));
+					harmony?.Patch(original, prefix: new HarmonyMethod(prefix));
 
 					original = AccessTools.Method(typeof(EntityMoveHelper), nameof(EntityMoveHelper.UpdateMoveHelper));
 					prefix = AccessTools.Method(typeof(EntityMoveHelper_Patches), nameof(EntityMoveHelper_Patches.Prefix_UpdateMoveHelper));
-					harmony?.Patch(
-						original,
-						prefix: new HarmonyMethod(prefix));
+					harmony?.Patch(original, prefix: new HarmonyMethod(prefix));
 
 					original = AccessTools.Method(typeof(EModelBase), nameof(EModelBase.LookAtUpdate), new Type[] { typeof(EntityAlive) });
 					prefix = AccessTools.Method(typeof(EModelBase_Patches), nameof(EModelBase_Patches.Prefix_LookAtUpdate));
-					harmony?.Patch(
-						original,
-						prefix: new HarmonyMethod(prefix));
+					harmony?.Patch(original, prefix: new HarmonyMethod(prefix));
 				}
 
 				if (Config.CheckFeatureStatus("XMLExtensions", "NonlethalExplosives"))
 				{
 					var original = AccessTools.Method(typeof(Explosion), nameof(Explosion.AttackEntites), new Type[] { typeof(int), typeof(ItemValue), typeof(EnumDamageTypes) });
 					var prefix = AccessTools.Method(typeof(Explosion_Patches), nameof(Explosion_Patches.Prefix_AttackEntities));
-					harmony?.Patch(
-						original,
-						prefix: new HarmonyMethod(prefix));
+					harmony?.Patch(original, prefix: new HarmonyMethod(prefix));
 				}
 
 				if (Config.CheckFeatureStatus("XMLExtensions", "AmmoSounds"))
 				{
 					var original = AccessTools.Method(typeof(ItemActionRanged), nameof(ItemActionRanged.OnModificationsChanged), new Type[] { typeof(ItemActionData) });
 					var postfix = AccessTools.Method(typeof(ItemActionRanged_Patches), nameof(ItemActionRanged_Patches.Postfix_OnModificationsChanged));
-					harmony?.Patch(
-						original,
-						postfix: new HarmonyMethod(postfix));
+					harmony?.Patch(original, postfix: new HarmonyMethod(postfix));
 
 					original = AccessTools.Method(typeof(ItemActionRanged), nameof(ItemActionRanged.ReloadGun), new Type[] { typeof(ItemActionData) });
 					postfix = AccessTools.Method(typeof(ItemActionRanged_Patches), nameof(ItemActionRanged_Patches.Postfix_ReloadGun));
-					harmony?.Patch(
-						original,
-						prefix: new HarmonyMethod(postfix));
+					harmony?.Patch(original, prefix: new HarmonyMethod(postfix));
+				}
+
+				if (Config.CheckFeatureStatus("XMLExtensions", "EntityGregariousness"))
+				{
+					var original = AccessTools.Method(typeof(EntityAlive), nameof(EntityAlive.SetAttackTarget), new Type[] { typeof(EntityAlive), typeof(int) });
+					var postfix = AccessTools.Method(typeof(EntityAlive_Patches), nameof(EntityAlive_Patches.Postfix_SetAttackTarget));
+					harmony?.Patch(original, postfix: new HarmonyMethod(postfix));
+
+					original = AccessTools.Method(typeof(EntityAlive), nameof(EntityAlive.ProcessDamageResponse), new Type[] { typeof(DamageResponse) });
+					postfix = AccessTools.Method(typeof(EntityAlive_Patches), nameof(EntityAlive_Patches.Postfix_ProcessDamageResponse));
+					harmony?.Patch(original, postfix: new HarmonyMethod(postfix));
+					original = AccessTools.Method(typeof(EntityAlive), nameof(EntityAlive.ProcessDamageResponseLocal), new Type[] { typeof(DamageResponse) });
+					harmony?.Patch(original, postfix: new HarmonyMethod(postfix));
+				}
+
+				if (Config.CheckFeatureStatus("XMLExtensions", "SetAsTargetIfHurt_BypassSameTypeCheck"))
+				{
+					var original = AccessTools.Method(typeof(EAISetAsTargetIfHurt), nameof(EAISetAsTargetIfHurt.CanExecute));
+					var transpiler = AccessTools.Method(typeof(EAISetAsTargetIfHurt_Patches), nameof(EAISetAsTargetIfHurt_Patches.Transpiler_CanExecute));
+					harmony?.Patch(original, transpiler: new HarmonyMethod(transpiler));
+				}
+
+				if (Config.CheckFeatureStatus("XMLExtensions", "RunawayFromEntity_NoImplicitPlayer"))
+				{
+					var original = AccessTools.Method(typeof(EAIRunawayFromEntity), nameof(EAIRunawayFromEntity.FindEnemy));
+					var prefix = AccessTools.Method(typeof(EAIRunawayFromEntity_Patches), nameof(EAIRunawayFromEntity_Patches.Prefix_FindEnemy));
+					harmony?.Patch(original, prefix: new HarmonyMethod(prefix) { priority = Priority.Last });
+				}
+
+				if (Config.CheckFeatureStatus("XMLExtensions", "SetNearestCorpseAsTarget_Filters"))
+				{
+					var original = AccessTools.Method(typeof(EAISetNearestCorpseAsTarget), nameof(EAISetNearestCorpseAsTarget.SetData), new Type[] { typeof(DictionarySave<string, string>) });
+					var postfix = AccessTools.Method(typeof(EAISetNearestCorpseAsTarget_Patches), nameof(EAISetNearestCorpseAsTarget_Patches.Postfix_SetData));
+					harmony?.Patch(original, postfix: new HarmonyMethod(postfix));
+
+					original = AccessTools.Method(typeof(EAISetNearestCorpseAsTarget), nameof(EAISetNearestCorpseAsTarget.CanExecute));
+					var prefix = AccessTools.Method(typeof(EAISetNearestCorpseAsTarget_Patches), nameof(EAISetNearestCorpseAsTarget_Patches.Prefix_CanExecute));
+					harmony?.Patch(original, prefix: new HarmonyMethod(prefix) { priority = Priority.Last });
 				}
 
 				if (!GameManager.IsDedicatedServer)
@@ -126,27 +160,19 @@ namespace Singularity
 						EntityPlayerLocal_Patches.DrowningPower = 0f;
 						var original = AccessTools.Method(typeof(EntityPlayerLocal), nameof(EntityPlayerLocal.guiDrawOverlayTextures), new Type[] { typeof(NGuiWdwInGameHUD), typeof(bool) });
 						var prefix = AccessTools.Method(typeof(EntityPlayerLocal_Patches), nameof(EntityPlayerLocal_Patches.Prefix_guiDrawOverlayTextures));
-						harmony?.Patch(
-							original,
-							prefix: new HarmonyMethod(prefix));
+						harmony?.Patch(original, prefix: new HarmonyMethod(prefix));
 
 						original = AccessTools.Method(typeof(ScreenEffects), nameof(ScreenEffects.SetScreenEffect), new Type[] { typeof(string), typeof(float), typeof(float) });
 						prefix = AccessTools.Method(typeof(ScreenEffects_Patches), nameof(ScreenEffects_Patches.Prefix_SetScreenEffect));
-						harmony?.Patch(
-							original,
-							prefix: new HarmonyMethod(prefix));
+						harmony?.Patch(original, prefix: new HarmonyMethod(prefix));
 
 						original = AccessTools.Method(typeof(EntityPlayerLocal), nameof(EntityPlayerLocal.startDeathCamera));
 						prefix = AccessTools.Method(typeof(EntityPlayerLocal_Patches), nameof(EntityPlayerLocal_Patches.Prefix_startDeathCamera));
-						harmony?.Patch(
-							original,
-							prefix: new HarmonyMethod(prefix));
+						harmony?.Patch(original, prefix: new HarmonyMethod(prefix));
 
 						original = AccessTools.Method(typeof(EntityPlayerLocal), nameof(EntityPlayerLocal.startDeathCamera));
 						var postfix = AccessTools.Method(typeof(EntityPlayerLocal_Patches), nameof(EntityPlayerLocal_Patches.Postfix_startDeathCamera));
-						harmony?.Patch(
-							original,
-							postfix: new HarmonyMethod(postfix));
+						harmony?.Patch(original, postfix: new HarmonyMethod(postfix));
 					}
 				}
 			});
