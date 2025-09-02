@@ -20,7 +20,7 @@ namespace Singularity
 {
 	public abstract partial class EntityAlive_Patches
 	{
-		public static float assistRadius = 100f;
+		public static float assistRadius = 200f;
 		public static float assistCooldownSeconds = 6f;
 
 		public static readonly List<Entity> entitiesFound = new();
@@ -60,7 +60,7 @@ namespace Singularity
 				foreach (var entity in entitiesFound)
 				{
 					var ally = entity as EntityAlive;
-					if (ally == null || ally == _attackTarget || !ally.IsAlive()) continue;
+					if (ally == _attackTarget || ally?.IsAlive() != true) continue;
 
 					if (ally.entityClass != _attackTarget.entityClass) continue;
 
