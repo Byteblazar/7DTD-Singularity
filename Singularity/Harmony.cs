@@ -27,8 +27,8 @@ namespace Singularity
 		public static ShaderlessFX? fx;
 		public static bool Patched = false;
 
-		public static Dictionary<string, PatchInfo> patches = new();
-		public class PatchInfo { public MethodBase? original; public MethodInfo? patch; }
+		//public static Dictionary<string, PatchInfo> patches = new();
+		//public class PatchInfo { public MethodBase? original; public MethodInfo? patch; }
 
 		public void InitMod(Mod _modInstance)
 		{
