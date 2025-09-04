@@ -34,7 +34,8 @@ namespace Singularity
 		{
 			harmony = new Harmony(Assembly.GetExecutingAssembly().FullName);
 
-			ModEvents.GameAwake.RegisterHandler((ref ModEvents.SGameAwakeData data) => {
+			ModEvents.GameAwake.RegisterHandler((ref ModEvents.SGameAwakeData data) =>
+			{
 				if (GameManager.IsDedicatedServer) InitClasses();
 			});
 			ModEvents.MainMenuOpened.RegisterHandler((ref ModEvents.SMainMenuOpenedData data) =>

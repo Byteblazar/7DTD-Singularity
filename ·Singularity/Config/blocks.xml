@@ -80,7 +80,7 @@
 					- Adds a cannibalistic parameter that gives each entity a chance of eating the remains of members of its own class (normalized percentage from 0.0 to 1.0). Defaults to 0.0 if not set (no cannibalism)
 					
 					Example:
-					<property name="AITarget-1" data="class=EntityAnimalRabbit,EntityAnimalBoar;cannibalistic=0.20"/>
+					<property name="AITarget-1" value="SetNearestCorpseAsTarget" data="class=EntityAnimalRabbit,EntityAnimalBoar;cannibalismChance=0.20"/>
 						
 					The above example translates to: Entity will eat dead rabbits and boars nearby. If the entity itself is a rabbit or a boar, there will be a 20% chance it will be flagged as a cannibal upon spawning, and if so, it will eat the remains of other rabbits or boars, otherwise it won't.
 				-->
