@@ -13,6 +13,8 @@
  * 
 */
 
+using System.Text;
+
 namespace Singularity
 {
 	public class NetPackageItemActionSound : NetPackage
@@ -68,6 +70,25 @@ namespace Singularity
 			}
 		}
 
-		public override int GetLength() => 100;
+		public override int GetLength()
+		{
+			int len = 7;
+
+			int s1 = string.IsNullOrEmpty(soundStart) ? 0 : Encoding.UTF8.GetByteCount(soundStart);
+			int s2 = string.IsNullOrEmpty(soundLoop) ? 0 : Encoding.UTF8.GetByteCount(soundLoop);
+
+			len += PrefixSize(s1) + s1;
+			len += PrefixSize(s2) + s2;
+			return len;
+
+			static int PrefixSize(int value)
+			{
+				if (value <= 0) return 1;
+				uint v = (uint)value;
+				int size = 0;
+				do { v >>= 7; size++; } while (v != 0);
+				return size;
+			}
+		}
 	}
 }

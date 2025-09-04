@@ -53,11 +53,18 @@ namespace Singularity
 			props.Values.TryGetValue("Sound_start", out actionDataRanged.SoundStart);
 			props.Values.TryGetValue("Sound_loop", out actionDataRanged.SoundLoop);
 
+			bool set = false;
 			if (ammoClass.Properties.Values.TryGetValue("Singularity_Sound_start", out var ammoSoundStart))
+			{
 				actionDataRanged.SoundStart = ammoSoundStart;
+				set = true;
+			}
 
 			if (ammoClass.Properties.Values.TryGetValue("Singularity_Sound_loop", out var ammoSoundLoop))
+			{
 				actionDataRanged.SoundLoop = ammoSoundLoop;
+				set = true;
+			}
 
 			actionDataRanged.SoundStart = itemValue.GetPropertyOverride("Sound_start", actionDataRanged.SoundStart);
 			actionDataRanged.SoundLoop = itemValue.GetPropertyOverride("Sound_loop", actionDataRanged.SoundLoop);
@@ -65,17 +72,20 @@ namespace Singularity
 			int slotIdx = actionDataRanged.invData.slotIdx;
 			int actionIdx = actionDataRanged.indexInEntityOfAction;
 
-			var pkg = NetPackageManager.GetPackage<NetPackageItemActionSound>().Setup(
-					localPlayer.entityId,
-					slotIdx,
-					actionIdx,
-					actionDataRanged.SoundStart,
-					actionDataRanged.SoundLoop
-				);
+			if (set)
+			{
+				var pkg = NetPackageManager.GetPackage<NetPackageItemActionSound>().Setup(
+						localPlayer.entityId,
+						slotIdx,
+						actionIdx,
+						actionDataRanged.SoundStart ?? string.Empty,
+						actionDataRanged.SoundLoop ?? string.Empty
+					);
 
-			if (GameManager.Instance.World.IsRemote())
-				SingletonMonoBehaviour<ConnectionManager>.Instance.SendToServer(pkg);
-			else SingletonMonoBehaviour<ConnectionManager>.Instance.SendPackage(pkg, _allButAttachedToEntityId: localPlayer.entityId);
+				if (GameManager.Instance.World.IsRemote())
+					SingletonMonoBehaviour<ConnectionManager>.Instance.SendToServer(pkg);
+				else SingletonMonoBehaviour<ConnectionManager>.Instance.SendPackage(pkg, _allButAttachedToEntityId: localPlayer.entityId);
+			}
 		}
 	}
 }
