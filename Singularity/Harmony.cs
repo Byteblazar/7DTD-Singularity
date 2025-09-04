@@ -34,19 +34,14 @@ namespace Singularity
 		{
 			harmony = new Harmony(Assembly.GetExecutingAssembly().FullName);
 
+			ModEvents.GameAwake.RegisterHandler((ref ModEvents.SGameAwakeData data) => {
+				if (GameManager.IsDedicatedServer) InitClasses();
+			});
 			ModEvents.MainMenuOpened.RegisterHandler((ref ModEvents.SMainMenuOpenedData data) =>
 			{
 				harmony?.UnpatchSelf();
 				Patched = false;
-
-				// patches for custom entity classes
-				var original = AccessTools.Method(typeof(EntityFactory), nameof(EntityFactory.GetEntityType), new Type[] { typeof(string) });
-				var patch = AccessTools.Method(typeof(EntityFactory_Patches), nameof(EntityFactory_Patches.Prefix_GetEntityType));
-				harmony?.Patch(original, prefix: patch);
-
-				original = AccessTools.Method(typeof(EntityClassesFromXml), nameof(EntityClassesFromXml.LoadEntityClasses), new Type[] { typeof(XmlFile) });
-				patch = AccessTools.Method(typeof(EntityClassesFromXml_Patches), nameof(EntityClassesFromXml_Patches.Prefix_LoadEntityClasses));
-				harmony?.Patch(original, prefix: patch);
+				InitClasses();
 			});
 
 			ModEvents.PlayerSpawnedInWorld.RegisterHandler((ref ModEvents.SPlayerSpawnedInWorldData data) =>
@@ -189,6 +184,17 @@ namespace Singularity
 				fx = go.AddComponent<ShaderlessFX>();
 				go.SetActive(true);
 			}
+		}
+		public static void InitClasses()
+		{
+			// patches for custom entity classes
+			var original = AccessTools.Method(typeof(EntityFactory), nameof(EntityFactory.GetEntityType), new Type[] { typeof(string) });
+			var patch = AccessTools.Method(typeof(EntityFactory_Patches), nameof(EntityFactory_Patches.Prefix_GetEntityType));
+			harmony?.Patch(original, prefix: patch);
+
+			original = AccessTools.Method(typeof(EntityClassesFromXml), nameof(EntityClassesFromXml.LoadEntityClasses), new Type[] { typeof(XmlFile) });
+			patch = AccessTools.Method(typeof(EntityClassesFromXml_Patches), nameof(EntityClassesFromXml_Patches.Prefix_LoadEntityClasses));
+			harmony?.Patch(original, prefix: patch);
 		}
 	}
 }
