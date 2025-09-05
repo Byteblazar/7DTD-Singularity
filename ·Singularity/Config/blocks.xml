@@ -77,7 +77,7 @@
 				<!-- 
 					Extends SetNearestCorpseAsTarget in the following ways:
 					- Adds a class parameter to filter by entity class (much like SetNearestEntityAsTarget, but simpler syntax)
-					- Adds a cannibalistic parameter that gives each entity a chance of eating the remains of members of its own class (normalized percentage from 0.0 to 1.0). Defaults to 0.0 if not set (no cannibalism)
+					- Adds a cannibalismChance parameter that gives each entity a chance of eating the remains of members of its own class (normalized percentage from 0.0 to 1.0). Defaults to 0.0 if not set (no cannibalism)
 					
 					Example:
 					<property name="AITarget-1" value="SetNearestCorpseAsTarget" data="class=EntityAnimalRabbit,EntityAnimalBoar;cannibalismChance=0.20"/>
