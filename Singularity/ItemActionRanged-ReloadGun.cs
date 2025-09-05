@@ -19,7 +19,7 @@ namespace Singularity
 	{
 		public static void Postfix_ReloadGun(ItemActionRanged __instance, ItemActionData _actionData)
 		{
-			if (!(_actionData is ItemActionRanged.ItemActionDataRanged actionDataRanged))
+			if (_actionData is not ItemActionRanged.ItemActionDataRanged actionDataRanged)
 				return;
 
 			if (actionDataRanged.invData.holdingEntity.isEntityRemote)
