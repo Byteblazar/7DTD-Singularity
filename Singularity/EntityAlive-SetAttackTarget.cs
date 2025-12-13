@@ -13,22 +13,12 @@
  * 
 */
 
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace Singularity
 {
 	public abstract partial class EntityAlive_Patches
 	{
-		public static float assistRadius = 200f;
-		public static float assistCooldownSeconds = 6f;
-
-		public static readonly List<Entity> entitiesFound = new();
-		public static readonly ConditionalWeakTable<EntityAlive, FloatBox> cooldownsByAttacker = new();
-		public static readonly ConditionalWeakTable<EntityAlive, FloatBox> cooldownsByTarget = new();
-		public static readonly ConditionalWeakTable<EntityAlive, FloatBox> rollsByAlly = new();
-		public class FloatBox { public float value = 0f; }
-
 		public static void Postfix_SetAttackTarget(EntityAlive __instance, EntityAlive _attackTarget, int _attackTargetTime)
 		{
 			try
@@ -37,41 +27,20 @@ namespace Singularity
 					|| __instance?.IsAlive() != true
 					|| __instance == _attackTarget) return;
 
-				float now = Time.realtimeSinceStartup;
-				var cooldown = cooldownsByAttacker.GetOrCreateValue(__instance);
-				if (cooldown.value > now) return;
-				cooldown.value = now + assistCooldownSeconds + UnityEngine.Random.value;
+				Gregariousness.Data attackerGData = Gregariousness.GetOrCreate(__instance);
+				if (attackerGData.GetInAssistCooldown()) return;
 
-				cooldown = cooldownsByTarget.GetOrCreateValue(_attackTarget);
-				if (cooldown.value > now) return;
-				cooldown.value = now + assistCooldownSeconds + UnityEngine.Random.value;
+				Gregariousness.Data targetGData = Gregariousness.GetOrCreate(_attackTarget);
+				if (targetGData.IsSolitary || targetGData.GetInAssistCooldown()) return;
 
-				float gregariousness = _attackTarget.EntityClass.Properties.GetFloat("Singularity_Gregariousness");
-
-				if (gregariousness <= 0) return;
-
-				var center = _attackTarget.position;
-				var bb = new Bounds(center, new Vector3(assistRadius * 2f, 6f, assistRadius * 2f));
-
-				_attackTarget.world.GetEntitiesInBounds(typeof(EntityAlive), bb, entitiesFound);
+				Gregariousness.cachedEntities.Clear();
+				if (!Gregariousness.GetNearbyAllies(_attackTarget)) return;
 
 				var attackerType = __instance.GetType();
 
-				foreach (var entity in entitiesFound)
+				foreach (var ally in Gregariousness.cachedEntities)
 				{
-					var ally = entity as EntityAlive;
-					if (ally == _attackTarget || ally?.IsAlive() != true) continue;
-
-					if (ally.entityClass != _attackTarget.entityClass) continue;
-
-					var mgr = ally.aiManager;
-					if (mgr == null) continue;
-
-					var roll = rollsByAlly.GetOrCreateValue(ally);
-					if (roll.value == 0f) roll.value = UnityEngine.Random.value;
-					if (roll.value > gregariousness) continue;
-
-					var targetTasks = mgr.GetTargetTasks<EAISetNearestEntityAsTarget>();
+					var targetTasks = ally.aiManager.GetTargetTasks<EAISetNearestEntityAsTarget>();
 					if (targetTasks == null) continue;
 
 					foreach (var ttask in targetTasks)
@@ -95,23 +64,18 @@ namespace Singularity
 							var newTc = new EAISetNearestEntityAsTarget.TargetClass
 							{
 								type = attackerType,
-								hearDistMax = assistRadius,
-								seeDistMax = assistRadius
+								hearDistMax = Gregariousness.assistRadius,
+								seeDistMax = Gregariousness.assistRadius
 							};
 							ttask.targetClasses.Add(newTc);
 						}
 					}
-
 					if (ally.GetRevengeTarget() == null && !IsEntityBusy(ally)) { ally.SetRevengeTarget(__instance); }
 				}
 			}
 			catch (Exception ex)
 			{
 				Debug.LogException(ex);
-			}
-			finally
-			{
-				entitiesFound.Clear();
 			}
 		}
 

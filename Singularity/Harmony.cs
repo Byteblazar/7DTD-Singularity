@@ -112,6 +112,10 @@ namespace Singularity
 					harmony?.Patch(original, postfix: new HarmonyMethod(postfix));
 					original = AccessTools.Method(typeof(EntityAlive), nameof(EntityAlive.ProcessDamageResponseLocal), new Type[] { typeof(DamageResponse) });
 					harmony?.Patch(original, postfix: new HarmonyMethod(postfix));
+
+					original = AccessTools.Method(typeof(EAIWander), nameof(EAIWander.Start));
+					var prefix = AccessTools.Method(typeof(EAIWander_Patches), nameof(EAIWander_Patches.Prefix_Start));
+					harmony?.Patch(original, prefix: new HarmonyMethod(prefix) { priority = Priority.Last });
 				}
 
 				if (Config.CheckFeatureStatus("XMLExtensions", "SetAsTargetIfHurt_BypassSameTypeCheck"))
