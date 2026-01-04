@@ -94,6 +94,12 @@
                 <property name="UseCustomBurningEffects" value="false"/>
 				<!-- Replaces the blood drop overlay with custom effects when burning. Requires ShaderlessFX. -->
             </property>
+			
+			<property class="ServerPolicies">
+				<property name="EnforceBrightness" value="false"/>
+				<property name="TargetBrightness" value="0.5" />
+				<!-- Forces clients to use the chosen Brightness (OptionsGfxBrightness). Valid values: from 0.0 (0%) to 1.0 (100%) -->
+			</property>
 
         </block>
     </append>
