@@ -16,19 +16,18 @@
 using System.Runtime.CompilerServices;
 using System.Xml.Linq;
 
-namespace Singularity
+namespace Singularity.DynamicPatches;
+
+public abstract partial class MinEventActionModifyScreenEffect_Patches
 {
-	public abstract partial class MinEventActionModifyScreenEffect_Patches
+	static readonly ConditionalWeakTable<MinEventActionModifyScreenEffect, string> AttributeValues = new();
+	public static void Prefix_ParseXmlAttribute(ref XAttribute _attribute, ref MinEventActionModifyScreenEffect __instance)
 	{
-		static readonly ConditionalWeakTable<MinEventActionModifyScreenEffect, string> AttributeValues = new();
-		public static void Prefix_ParseXmlAttribute(ref XAttribute _attribute, ref MinEventActionModifyScreenEffect __instance)
+		if (_attribute.Name.LocalName == "color")
 		{
-			if (_attribute.Name.LocalName == "color")
-			{
-				var v = _attribute.Value ?? string.Empty;
-				AttributeValues.Remove(__instance);
-				AttributeValues.Add(__instance, v);
-			}
+			var v = _attribute.Value ?? string.Empty;
+			AttributeValues.Remove(__instance);
+			AttributeValues.Add(__instance, v);
 		}
 	}
 }

@@ -13,19 +13,19 @@
  * 
 */
 
-namespace Singularity
+using UnityEngine;
+
+namespace Singularity.DynamicPatches;
+
+public abstract partial class MinEventActionModifyScreenEffect_Patches
 {
-	public abstract partial class ItemActionRanged_Patches
+	public static void Prefix_Execute(ref MinEventParams _params, ref MinEventActionModifyScreenEffect __instance)
 	{
-		public static void Postfix_ReloadGun(ItemActionRanged __instance, ItemActionData _actionData)
+		if (__instance.effect_name == "Singularity_Overlay")
 		{
-			if (_actionData is not ItemActionRanged.ItemActionDataRanged actionDataRanged)
-				return;
-
-			if (actionDataRanged.invData.holdingEntity.isEntityRemote)
-				return;
-
-			UpdateSounds(__instance, actionDataRanged);
+			if (AttributeValues.TryGetValue(__instance, out var color))
+				Singularity.fx.SetOverlayColor(color);
+			else Singularity.fx.OverlayColor = Color.white;
 		}
 	}
 }

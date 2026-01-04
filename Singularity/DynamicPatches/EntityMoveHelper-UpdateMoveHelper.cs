@@ -13,13 +13,17 @@
  * 
 */
 
-namespace Singularity
+namespace Singularity.DynamicPatches;
+
+public abstract partial class EntityMoveHelper_Patches
 {
-	public abstract partial class EntityLookHelper_Patches
+	public static bool Prefix_UpdateMoveHelper(EntityMoveHelper __instance)
 	{
-		public static bool Prefix_onUpdateLook(EntityLookHelper __instance)
+		if (__instance.entity.GetCVar("Singularity_Stunned") > 0f)
 		{
-			return !(__instance.entity.GetCVar("Singularity_Stunned") > 0f);
+			__instance.StopMove();
+			return false;
 		}
+		return true;
 	}
 }

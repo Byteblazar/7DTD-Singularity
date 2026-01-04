@@ -13,16 +13,18 @@
  * 
 */
 
-namespace Singularity
+namespace Singularity.DynamicPatches;
+
+public abstract partial class ItemActionRanged_Patches
 {
-	public abstract partial class EntityAlive_Patches
+	public static void Postfix_ReloadGun(ItemActionRanged __instance, ItemActionData _actionData)
 	{
-		public static void Postfix_ProcessDamageResponse(EntityAlive __instance, DamageResponse _dmResponse)
-		{
-			if (__instance?.world?.IsRemote() != false || __instance is EntityPlayer) return;
-			EntityAlive? source = __instance.world.GetEntity(_dmResponse.Source.getEntityId()) as EntityAlive;
-			if (source is not EntityPlayer) return;
-			Postfix_SetAttackTarget(source, __instance, 0);
-		}
+		if (_actionData is not ItemActionRanged.ItemActionDataRanged actionDataRanged)
+			return;
+
+		if (actionDataRanged.invData.holdingEntity.isEntityRemote)
+			return;
+
+		UpdateSounds(__instance, actionDataRanged);
 	}
 }

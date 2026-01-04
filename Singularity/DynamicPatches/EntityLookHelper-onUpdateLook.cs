@@ -13,26 +13,12 @@
  * 
 */
 
-namespace Singularity
+namespace Singularity.DynamicPatches;
+
+public abstract partial class EntityLookHelper_Patches
 {
-	public abstract partial class ScreenEffects_Patches
+	public static bool Prefix_onUpdateLook(EntityLookHelper __instance)
 	{
-		public static void Postfix_SetScreenEffect(ref string _name, ref float _intensity, ref float _fadeTime)
-		{
-			if (_name == "Singularity_Snapshot")
-			{
-				Singularity.fx?.Snapshot(_intensity, _fadeTime);
-			}
-			else if (_name == "Singularity_Overlay")
-			{
-				Singularity.fx?.OverlayRGB(_intensity, _fadeTime);
-			}
-		}
-		public static bool Prefix_SetScreenEffect(ref string _name, ref float _intensity, ref float _fadeTime)
-		{
-			return _name != "Dead"
-					|| !EntityPlayerLocal_Patches.DeathCam
-					|| !(EntityPlayerLocal_Patches.Burning || EntityPlayerLocal_Patches.DrowningPower > 0f);
-		}
+		return !(__instance.entity.GetCVar("Singularity_Stunned") > 0f);
 	}
 }

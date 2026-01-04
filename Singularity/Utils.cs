@@ -15,27 +15,26 @@
 
 using UnityEngine;
 
-namespace Singularity
+namespace Singularity;
+
+public static class Utils
 {
-	public static class Utils
+	public static bool IsHost => GameManager.IsDedicatedServer || SingletonMonoBehaviour<ConnectionManager>.Instance.IsServer;
+	public static bool IsMultiplayerHost => (!GameManager.IsDedicatedServer) && SingletonMonoBehaviour<ConnectionManager>.Instance.IsServer;
+	public static Color ParseAnyColor(string input)
 	{
-		public static bool IsHost => GameManager.IsDedicatedServer || SingletonMonoBehaviour<ConnectionManager>.Instance.IsServer;
-		public static bool IsMultiplayerHost => (!GameManager.IsDedicatedServer) && SingletonMonoBehaviour<ConnectionManager>.Instance.IsServer;
-		public static Color ParseAnyColor(string input)
+		if (string.IsNullOrWhiteSpace(input))
+			return Color.clear;
+
+		input = input.Trim();
+
+		try
 		{
-			if (string.IsNullOrWhiteSpace(input))
-				return Color.clear;
-
-			input = input.Trim();
-
-			try
-			{
-				return StringParsers.ParseHexColor(input);
-			}
-			catch
-			{
-				return StringParsers.ParseColor(input);
-			}
+			return StringParsers.ParseHexColor(input);
+		}
+		catch
+		{
+			return StringParsers.ParseColor(input);
 		}
 	}
 }

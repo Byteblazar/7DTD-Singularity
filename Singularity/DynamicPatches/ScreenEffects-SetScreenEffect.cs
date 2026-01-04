@@ -13,13 +13,25 @@
  * 
 */
 
-namespace Singularity
+namespace Singularity.DynamicPatches;
+
+public abstract partial class ScreenEffects_Patches
 {
-	public abstract partial class EModelBase_Patches
+	public static void Postfix_SetScreenEffect(ref string _name, ref float _intensity, ref float _fadeTime)
 	{
-		public static bool Prefix_LookAtUpdate(EModelBase __instance)
+		if (_name == "Singularity_Snapshot")
 		{
-			return !(__instance.entity is EntityAlive ea && ea.GetCVar("Singularity_Stunned") > 0f);
+			Singularity.fx?.Snapshot(_intensity, _fadeTime);
 		}
+		else if (_name == "Singularity_Overlay")
+		{
+			Singularity.fx?.OverlayRGB(_intensity, _fadeTime);
+		}
+	}
+	public static bool Prefix_SetScreenEffect(ref string _name, ref float _intensity, ref float _fadeTime)
+	{
+		return _name != "Dead"
+				|| !EntityPlayerLocal_Patches.DeathCam
+				|| !(EntityPlayerLocal_Patches.Burning || EntityPlayerLocal_Patches.DrowningPower > 0f);
 	}
 }

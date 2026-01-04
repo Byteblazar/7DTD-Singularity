@@ -13,18 +13,16 @@
  * 
 */
 
-namespace Singularity
+
+namespace Singularity.DynamicPatches;
+
+public abstract partial class EntityAlive_Patches
 {
-	public abstract partial class EntityMoveHelper_Patches
+	public static void Postfix_ProcessDamageResponse(EntityAlive __instance, DamageResponse _dmResponse)
 	{
-		public static bool Prefix_UpdateMoveHelper(EntityMoveHelper __instance)
-		{
-			if (__instance.entity.GetCVar("Singularity_Stunned") > 0f)
-			{
-				__instance.StopMove();
-				return false;
-			}
-			return true;
-		}
+		if (__instance?.world?.IsRemote() != false || __instance is EntityPlayer) return;
+		EntityAlive? source = __instance.world.GetEntity(_dmResponse.Source.getEntityId()) as EntityAlive;
+		if (source is not EntityPlayer) return;
+		Postfix_SetAttackTarget(source, __instance, 0);
 	}
 }

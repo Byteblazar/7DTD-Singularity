@@ -15,6 +15,8 @@
 
 using UnityEngine;
 
+namespace Singularity.DynamicPatches;
+
 public abstract partial class EAIRunawayFromEntity_Patches
 {
 	public static bool Prefix_FindEnemy(EAIRunawayFromEntity __instance)

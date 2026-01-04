@@ -13,19 +13,18 @@
  * 
 */
 
-namespace Singularity
-{
-	public abstract partial class EntityPlayerLocal_Patches
-	{
-		public static bool DeathCam { get; set; }
+namespace Singularity.DynamicPatches;
 
-		public static void Prefix_startDeathCamera(EntityPlayerLocal __instance)
-		{
-			DeathCam = true;
-		}
-		public static void Postfix_startDeathCamera(EntityPlayerLocal __instance)
-		{
-			DeathCam = false;
-		}
+public abstract partial class EntityPlayerLocal_Patches
+{
+	public static bool DeathCam { get; set; }
+
+	public static void Prefix_startDeathCamera(EntityPlayerLocal __instance)
+	{
+		DeathCam = true;
+	}
+	public static void Postfix_startDeathCamera(EntityPlayerLocal __instance)
+	{
+		DeathCam = false;
 	}
 }
