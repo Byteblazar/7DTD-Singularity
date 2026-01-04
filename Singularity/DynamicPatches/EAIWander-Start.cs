@@ -78,7 +78,7 @@ public abstract partial class EAIWander_Patches
 			else if (Gregariousness.AreThereAlliesAround(entity))
 			{
 				gData.IsAlpha = true;
-				Log.Warning($"{entity.EntityClass.classname} set to Alpha. Pos: {entity.position}");
+				//Log.Warning($"{entity.EntityClass.classname} set to Alpha. Pos: {entity.position}");
 			}
 		}
 
