@@ -39,12 +39,15 @@ public abstract class Gregariousness
 		public int alphaFrameIndex = 0;
 		public bool IsInAssistCooldown = false;
 		public bool IsInAlphaCooldown = false;
+		public short slotsLeft = -1;
 
 		public void Init(EntityAlive entity)
 		{
 			if (doOnce) return;
 			doOnce = true;
 			float gregariousness = entity.EntityClass.Properties.GetFloat("Singularity_Gregariousness");
+			int sLeft = entity.EntityClass.Properties.GetInt("Singularity_GroupSize");
+			if (sLeft != 0) slotsLeft = (short)(sLeft - 1);
 			IsSolitary = gregariousness == 0f || UnityEngine.Random.value > gregariousness;
 		}
 
@@ -73,6 +76,17 @@ public abstract class Gregariousness
 					alphaCooldown = now + alphaCooldownSeconds + UnityEngine.Random.value;
 			}
 			return IsInAlphaCooldown;
+		}
+		public bool SetAlpha(EntityAlive alpha)
+		{
+			var aData = GetOrCreate(alpha);
+			if (aData.slotsLeft != 0)
+			{
+				--aData.slotsLeft;
+				MyAlpha = alpha;
+				return true;
+			}
+			return false;
 		}
 	}
 
@@ -112,7 +126,8 @@ public abstract class Gregariousness
 
 		foreach (var e in cachedEntities)
 		{
-			if (GetOrCreate(e).IsAlpha)
+			var eData = GetOrCreate(e);
+			if (eData.IsAlpha && eData.slotsLeft != 0)
 			{
 				alpha = e;
 				return true;

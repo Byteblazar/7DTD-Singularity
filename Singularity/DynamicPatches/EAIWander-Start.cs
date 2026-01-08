@@ -18,7 +18,7 @@ namespace Singularity.DynamicPatches;
 public abstract partial class EAIWander_Patches
 {
 	/*
-	 * am I a loner?
+	 * am I solitary?
 	 *		yes -> return
 	 *		no -> am I an alpha?
 	 *				yes -> look for entities of my type around (short-circuit)
@@ -29,11 +29,13 @@ public abstract partial class EAIWander_Patches
 	 *						yes -> is it alive?
 	 *								yes -> if distance > max, go to them -> return false
 	 *								no -> I don't follow an alpha anymore (jump to the no-alpha case)
-	 *						no -> is there an alpha around? (short-circuit)
+	 *						no -> is there an alpha around with room left in its group? (short-circuit)
 	 *								yes -> go to them & remember them for later
-	 *								no -> are there other entities of my type around (except loners) (short-circuit)?
-	 *										yes -> I'm the alpha now
-	 *										no -> do nothing
+	 *								no -> do I have slots left
+	 *										yes -> are there other entities of my type around (except solitary ones) (short-circuit)?
+	 *												yes -> I'm the alpha now
+	 *												no -> do nothing
+	 *										no -> I'm solitary now
 	 */
 
 	public static bool Prefix_Start(EAIWander __instance)
@@ -71,15 +73,21 @@ public abstract partial class EAIWander_Patches
 		{
 			if (Gregariousness.TryFindAlpha(entity, out var alpha))
 			{
-				gData.MyAlpha = alpha;
-				entity.FindPath(alpha.position, entity.GetMoveSpeedAggro(), false, __instance);
-				return false;
+				if (gData.SetAlpha(alpha))
+				{
+					entity.FindPath(alpha.position, entity.GetMoveSpeedAggro(), false, __instance);
+					return false;
+				}
 			}
-			else if (Gregariousness.AreThereAlliesAround(entity))
+			else if (gData.slotsLeft != 0)
 			{
-				gData.IsAlpha = true;
-				//Log.Warning($"{entity.EntityClass.classname} set to Alpha. Pos: {entity.position}");
+				if (Gregariousness.AreThereAlliesAround(entity))
+				{
+					gData.IsAlpha = true;
+					//Log.Warning($"{entity.EntityClass.classname} set to Alpha. Pos: {entity.position}");
+				}
 			}
+			else gData.IsSolitary = true;
 		}
 
 		return true;
