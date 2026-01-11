@@ -97,6 +97,12 @@ public class StaticPatches
 			var postfix = AccessTools.Method(typeof(EntityAlive_Patches), nameof(EntityAlive_Patches.Postfix_SetAttackTarget));
 			DynamicHarmony.Patch(original, postfix: new HarmonyMethod(postfix));
 
+			if (Utils.IsOfflineSingleplayer)
+			{
+				original = AccessTools.Method(typeof(EntityAlive), nameof(EntityAlive.SetAttackTargetClient), new Type[] { typeof(EntityAlive) });
+				DynamicHarmony.Patch(original, postfix: new HarmonyMethod(postfix));
+			}
+
 			original = AccessTools.Method(typeof(EntityAlive), nameof(EntityAlive.ProcessDamageResponse), new Type[] { typeof(DamageResponse) });
 			postfix = AccessTools.Method(typeof(EntityAlive_Patches), nameof(EntityAlive_Patches.Postfix_ProcessDamageResponse));
 			DynamicHarmony.Patch(original, postfix: new HarmonyMethod(postfix));

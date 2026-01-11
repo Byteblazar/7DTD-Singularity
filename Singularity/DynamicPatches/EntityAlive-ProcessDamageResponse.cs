@@ -23,6 +23,6 @@ public abstract partial class EntityAlive_Patches
 		if (__instance?.world?.IsRemote() != false || __instance is EntityPlayer) return;
 		EntityAlive? source = __instance.world.GetEntity(_dmResponse.Source.getEntityId()) as EntityAlive;
 		if (source is not EntityPlayer) return;
-		Postfix_SetAttackTarget(source, __instance, 0);
+		Postfix_SetAttackTarget(source, __instance);
 	}
 }

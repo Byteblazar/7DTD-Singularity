@@ -26,7 +26,7 @@ public abstract partial class ItemActionRanged_Patches
 	{
 		// runs locally in clients and for the host in multiplayer sessions
 		var localPlayer = GameManager.Instance?.World?.GetPrimaryPlayer();
-		if (!Utils.IsMultiplayerHost && _actionData?.invData?.holdingEntity?.entityId != localPlayer?.entityId)
+		if (!Utils.IsHostAndClient && _actionData?.invData?.holdingEntity?.entityId != localPlayer?.entityId)
 			return;
 
 		// this method needs to know if the weapon is overriding sounds (item modifiers), and if not, it applies custom ammo sounds as needed

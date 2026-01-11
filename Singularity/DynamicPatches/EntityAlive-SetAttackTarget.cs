@@ -19,7 +19,7 @@ namespace Singularity.DynamicPatches;
 
 public abstract partial class EntityAlive_Patches
 {
-	public static void Postfix_SetAttackTarget(EntityAlive __instance, EntityAlive _attackTarget, int _attackTargetTime)
+	public static void Postfix_SetAttackTarget(EntityAlive __instance, EntityAlive _attackTarget)
 	{
 		try
 		{

@@ -63,13 +63,15 @@
 				<!-- 
 					Any entity_class with a Singularity_Gregariousness property will have a chance of assisting other entities of its class that are getting attacked nearby (normalized percentage from 0.0 to 1.0). Example with 50% chance:
 					
-					<property name="Singularity_Gregariousness" value="0.5"/>
+					<append xpath="/entity_classes/entity_class[@name='animalBoar']">
+						<property name="Singularity_Gregariousness" value="0.5"/>
 					
 					As of 1.2.0.0, this property also causes entities to more formally band together around a leader. Every time members wander too far away from their leaders, they eventually return (unless they're unable to do so for any reason, like dying).
 					
 					As of 1.3.0.0, the maximum size of each group of entities can also be specified in the following way (example with a max group size of 4):
 					
-					<property name="Singularity_GroupSize" value="4"/>
+					<append xpath="/entity_classes/entity_class[@name='animalBoar']">
+						<property name="Singularity_GroupSize" value="4"/>
 					
 					This number represents slots for each leader of a group (counting the leader). Note that once group members die, their slots are NOT freed. This is on purpose, as it makes it more likely for multiple groups of different sizes (up to max) to exist simultaneously, instead of fewer large groups.
 					
