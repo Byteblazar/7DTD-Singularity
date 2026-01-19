@@ -207,11 +207,15 @@ public class StaticPatches
 				var prefix = AccessTools.Method(typeof(XUiC_SpawnSelectionWindow_Patches), nameof(XUiC_SpawnSelectionWindow_Patches.Prefix_SpawnButtonPressed));
 				DynamicHarmony.Patch(original, prefix: new HarmonyMethod(prefix));
 
+				original = AccessTools.Method(typeof(GameManager), nameof(GameManager.Cleanup));
+				prefix = AccessTools.Method(typeof(GameManager_Patches), nameof(GameManager_Patches.Prefix_Cleanup));
+				DynamicHarmony.Patch(original, prefix: new HarmonyMethod(prefix));
+
 				original = AccessTools.Method(typeof(GameServerInfo), nameof(GameServerInfo.GetValue), new Type[] { typeof(GameInfoBool) });
 				var postfix = AccessTools.Method(typeof(GameServerInfo_Patches), nameof(GameServerInfo_Patches.Postfix_GetValue));
 				DynamicHarmony.Patch(original, postfix: new HarmonyMethod(postfix));
 
-				AllowSpawnNearBackpack = GamePrefs.GetBool(EnumGamePrefs.AllowSpawnNearBackpack);
+				AllowSpawnNearBackpack ??= GamePrefs.GetBool(EnumGamePrefs.AllowSpawnNearBackpack);
 				GamePrefs.Set(EnumGamePrefs.AllowSpawnNearBackpack, false);
 			}
 		}
