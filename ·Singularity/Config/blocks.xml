@@ -111,6 +111,8 @@
 				<property name="EnforceBrightness" value="false"/>
 				<property name="TargetBrightness" value="0.5" />
 				<!-- Forces clients to use the chosen Brightness (OptionsGfxBrightness). Valid values: from 0.0 (0%) to 1.0 (100%) -->
+				<property name="NoRespawnNearBackpack" value="false" />
+				<!-- Disables the option to spawn near the backpack and overrides the behavior of the Respawn Now button to ensure the player spawns in one of the world's starting spawn points. -->
 			</property>
 
         </block>

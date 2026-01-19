@@ -26,12 +26,16 @@ public class StaticPatches
 {
 	public static Harmony DynamicHarmony { get; private set; } = new Harmony("com.byteblazar.singularity.dynamic");
 	public static bool Patched = false;
+	public static bool? AllowSpawnNearBackpack;
 
 	[HarmonyFinalizer]
 	[HarmonyPatch(typeof(XUiC_MainMenu), nameof(XUiC_MainMenu.OnOpen))]
 	public static void Finalizer_OnOpen()
 	{
 		DynamicHarmony?.UnpatchSelf();
+		if (AllowSpawnNearBackpack != null)
+			GamePrefs.Set(EnumGamePrefs.AllowSpawnNearBackpack, (bool)AllowSpawnNearBackpack);
+
 		Patched = false;
 	}
 
@@ -196,6 +200,19 @@ public class StaticPatches
 				GamePrefs.Set(EnumGamePrefs.OptionsGfxBrightness, XUiC_OptionsVideo_Patches.Target);
 				GamePrefs.Instance?.Save();
 				GameOptionsManager.ApplyAllOptions(LocalPlayerUI.primaryUI);
+			}
+			if (Config.CheckFeatureStatus("ServerPolicies", "NoRespawnNearBackpack"))
+			{
+				var original = AccessTools.Method(typeof(XUiC_SpawnSelectionWindow), nameof(XUiC_SpawnSelectionWindow.SpawnButtonPressed), new Type[] { typeof(SpawnMethod), typeof(int) });
+				var prefix = AccessTools.Method(typeof(XUiC_SpawnSelectionWindow_Patches), nameof(XUiC_SpawnSelectionWindow_Patches.Prefix_SpawnButtonPressed));
+				DynamicHarmony.Patch(original, prefix: new HarmonyMethod(prefix));
+
+				original = AccessTools.Method(typeof(GameServerInfo), nameof(GameServerInfo.GetValue), new Type[] { typeof(GameInfoBool) });
+				var postfix = AccessTools.Method(typeof(GameServerInfo_Patches), nameof(GameServerInfo_Patches.Postfix_GetValue));
+				DynamicHarmony.Patch(original, postfix: new HarmonyMethod(postfix));
+
+				AllowSpawnNearBackpack = GamePrefs.GetBool(EnumGamePrefs.AllowSpawnNearBackpack);
+				GamePrefs.Set(EnumGamePrefs.AllowSpawnNearBackpack, false);
 			}
 		}
 	}
